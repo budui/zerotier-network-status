@@ -2,8 +2,8 @@
 	import List from "./List.svelte";
 
 	let data = [
-		{ name: "Network_S", url: `http://localhost:5000/list.json` },
-		{ name: "Network_G", url: `http://localhost:5000/list1.json` },
+		{ name: "Network_S", url: `api/network/S` },
+		{ name: "Network_G", url: `api/network/G` },
 	];
 </script>
 

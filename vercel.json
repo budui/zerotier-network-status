@@ -1,0 +1,11 @@
+{
+    "routes": [
+        {
+            "src": "/api/network/(.*)",
+            "dest": "api/network.py"
+        }
+    ],
+    "github": {
+        "silent": true
+    }
+}
