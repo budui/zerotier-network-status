@@ -42,7 +42,7 @@
             <tr>
                 {#each tableHeaders as th, i}
                     <th
-                        class={i == 3
+                        class={i == 2
                             ? "hidden md:block md:px-6 px-2"
                             : "md:px-6 px-2"}>{th}</th
                     >
