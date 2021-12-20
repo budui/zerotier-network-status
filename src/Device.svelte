@@ -59,11 +59,8 @@
     </Modal>
 {/if}
 
-<tr
-    class={device.online ? "bg-inherit" : "bg-yellow-100"}
-    on:click={handleClick}
->
-    <td class="md:px-6 px-2">{device.name}</td>
+<tr class={device.online ? "bg-inherit" : "bg-yellow-100"}>
+    <td class="md:px-6 px-2" on:click={handleClick}>{device.name}</td>
     <td class="md:px-6 px-2">
         {#each device.config.ipAssignments as ipAssignment}
             <code>
