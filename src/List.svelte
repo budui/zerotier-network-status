@@ -2,11 +2,10 @@
     import Device from "./Device.svelte";
 
     export let data_url;
+    export let name;
 
     let servers;
     let clients;
-
-    let tableHeaders = ["设备名称", "ZeroTier网IP", "公网IP", "上次在线时间"];
 
     $: fetch(data_url)
         .then((r) => r.json())
@@ -37,32 +36,26 @@
 </script>
 
 {#if servers}
-    <table class="items-center bg-transparent w-full border-collapse ">
-        <thead>
-            <tr>
-                {#each tableHeaders as th, i}
-                    <th
-                        class={i == 2
-                            ? "hidden md:block md:px-6 px-2"
-                            : "md:px-6 px-2"}>{th}</th
-                    >
-                {/each}
-            </tr>
-        </thead>
+    <div class="bg-indigo-700 mt-8 px-4 py-5 border-b rounded-t sm:px-6">
+        <h3 class="text-2xl leading-6 font-2xl text-white">
+            {name}
+        </h3>
+    </div>
 
-        <tbody>
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+        <ul class="divide-y divide-gray-200">
             {#each servers as device}
                 <Device {device} />
             {/each}
             {#each clients as device}
                 <Device {device} />
             {/each}
-        </tbody>
-    </table>
+        </ul>
+    </div>
+{:else}
+    <div class="bg-indigo-700 shadow overflow-hidden sm:rounded-md p-4 my-10">
+        <p class="text-xl  text-white">
+            {name} Loading...
+        </p>
+    </div>
 {/if}
-
-<style>
-    th {
-        @apply bg-gray-50 text-gray-500 align-middle border border-solid border-gray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left;
-    }
-</style>

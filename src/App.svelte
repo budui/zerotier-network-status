@@ -1,34 +1,25 @@
 <script>
 	import List from "./List.svelte";
 
+	let name = "ZeroTier Network Status";
+
 	let data = [
 		{ name: "Network_S", url: `api/network/S` },
 		{ name: "Network_G", url: `api/network/G` },
 	];
 </script>
 
-<main class="py-1 bg-gray-100 w-full">
+<main class="py-1 bg-gray-100 w-full min-h-screen">
 	<div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-		{#each data as n}
-			<div
-				class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded "
+		<div class="pb-8 my-8">
+			<h1
+				class="md:text-6xl text-4xl text-zinc-800 font-semibold text-center"
 			>
-				<div class="rounded-t mb-0 px-4 py-3 border-0">
-					<div class="flex flex-wrap items-center">
-						<div
-							class="relative w-full px-4 max-w-full flex-grow flex-1"
-						>
-							<h3 class="font-semibold text-base text-gray-700">
-								{n.name}
-							</h3>
-						</div>
-						<div class="red-500"><p>黄色背景为掉线设备</p></div>
-					</div>
-				</div>
-				<div class="block w-full overflow-x-auto">
-					<List data_url={n.url} />
-				</div>
-			</div>
+				{name}
+			</h1>
+		</div>
+		{#each data as n}
+			<List data_url={n.url} name={n.name} />
 		{/each}
 
 		<footer class="relative pt-8 pb-6 mt-16">

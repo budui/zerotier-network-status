@@ -8,6 +8,8 @@
     let records = {
         type: device.type,
         nodeId: device.nodeId,
+        zerotierIP: device.config.ipAssignments,
+        physicalAddress: device.physicalAddress,
         hidden: device.hidden,
         description: device.description,
         authorized: device.config.authorized,
@@ -59,25 +61,59 @@
     </Modal>
 {/if}
 
-<tr class={device.online ? "bg-inherit" : "bg-yellow-100"}>
-    <td class="md:px-6 px-2" on:click={handleClick}>{device.name}</td>
-    <td class="md:px-6 px-2">
-        {#each device.config.ipAssignments as ipAssignment}
-            <code>
-                {ipAssignment}
-            </code>
-        {/each}
-    </td>
-    <td class="hidden md:block md:px-6 px-2">
-        {device.physicalAddress ? device.physicalAddress : "Unknown IP"}
-    </td>
-    <td class="md:px-6 px-2">
-        {timeDifference(Date.now(), device.lastOnline)}
-    </td>
-</tr>
-
-<style>
-    td {
-        @apply border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4;
-    }
-</style>
+<li>
+    <div class="block hover:bg-gray-50">
+        <div class="px-4 py-4 sm:px-6">
+            <div class="flex items-center justify-between">
+                <p class="truncate">
+                    {#each device.config.ipAssignments as ipAssignment}
+                        <span on:click={handleClick}
+                            class="px-2 py-2 font-semibold text-sm bg-neutral-400 text-white rounded-md shadow-sm opacity-100"
+                        >
+                            {ipAssignment}
+                        </span>
+                    {/each}
+                    <span class="pr-4">{device.name}</span>
+                </p>
+                <div class="ml-2 flex-shrink-0 flex">
+                    {#if device.online}
+                        <p
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                        >
+                            Online
+                        </p>
+                    {:else}
+                        <p
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+                        >
+                            Offline
+                        </p>
+                    {/if}
+                </div>
+            </div>
+            <div class="mt-2 flex justify-between flex-col md:flex-row ">
+                <div class="flex text-gray-700">
+                    <p class="flex flex-col md:flex-row text-ellipsis ">
+                        <span class=""
+                            >{device.physicalAddress
+                                ? device.physicalAddress
+                                : "Unknown IP"}</span
+                        >
+                        {#if device.description}
+                            <span class="md:pl-4 text-black"
+                                >{device.description}</span
+                            >
+                        {/if}
+                    </p>
+                </div>
+                {#if !device.online}
+                    <div class="ml-2 flex  justify-end">
+                        <p class=" text-sm font-light ">
+                            {timeDifference(Date.now(), device.lastOnline)}
+                        </p>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</li>
