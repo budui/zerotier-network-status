@@ -17,6 +17,9 @@
 			>
 				{name}
 			</h1>
+			<h2 class="md:text-2xl text-xl py-8 text-center text-blue-600">
+				<a href="https://docs.qq.com/desktop/mydoc/folder/ASFrolAJMrkB" target="_Blank">服务器管理与使用文档</a>
+			</h2>
 		</div>
 		{#each data as n}
 			<List data_url={n.url} name={n.name} />
